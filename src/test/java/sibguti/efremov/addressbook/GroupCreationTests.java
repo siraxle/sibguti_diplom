@@ -16,19 +16,14 @@ public class GroupCreationTests {
     System.setProperty("webdriver.gecko.driver", "drivers/geckodriver.exe");
     wd = new FirefoxDriver();
     wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-  }
-
-  @AfterMethod
-  public void tearDown() {
-    wd.quit();
-  }
-
-  @Test
-  public void groupCreationTest() {
     wd.get("http://localhost/addressbook/group.php");
     wd.findElement(By.name("user")).sendKeys("admin");
     wd.findElement(By.name("pass")).sendKeys("secret");
     wd.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
+  }
+
+  @Test
+  public void groupCreationTest() {
     wd.findElement(By.linkText("groups")).click();
     wd.findElement(By.name("new")).click();
     wd.findElement(By.name("group_name")).click();
@@ -39,6 +34,11 @@ public class GroupCreationTests {
     wd.findElement(By.name("group_footer")).sendKeys("test3");
     wd.findElement(By.name("submit")).click();
     wd.findElement(By.linkText("group page")).click();
+  }
+
+  @AfterMethod
+  public void tearDown() {
+    wd.quit();
   }
 
 }
