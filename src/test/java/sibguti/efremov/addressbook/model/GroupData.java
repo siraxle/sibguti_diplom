@@ -1,4 +1,4 @@
-package sibguti.efremov.addressbook;
+package sibguti.efremov.addressbook.model;
 
 public class GroupData {
   private final String name;
