@@ -1,10 +1,11 @@
 package sibguti.efremov.addressbook.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class HomePageHelper extends HelperBase{
-  public HomePageHelper(FirefoxDriver wd) {
+  public HomePageHelper(WebDriver wd) {
     super(wd);
   }
 
