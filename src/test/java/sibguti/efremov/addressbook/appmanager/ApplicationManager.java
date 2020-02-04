@@ -24,19 +24,19 @@ public class ApplicationManager {
   }
 
   public void init() {
-    if (browser == BrowserType.FIREFOX){
+    if (browser.equals(BrowserType.FIREFOX)){
       System.setProperty("webdriver.gecko.driver", "drivers/geckodriver.exe");
       wd = new FirefoxDriver();
-    } else if (browser == BrowserType.CHROME) {
+    } else if (browser.equals(BrowserType.CHROME)) {
       System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
       wd = new ChromeDriver();
-    } else if (browser == BrowserType.IEXPLORE) {
+    } else if (browser.equals(BrowserType.IEXPLORE)) {
       System.setProperty("webdriver.ie.driver", "drivers/IEDriverServer.exe");
       wd = new InternetExplorerDriver();
     }
 
     wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-    wd.get("http://localhost/addressbook/group.php");
+    wd.get("http://localhost:8080/addressbook/group.php");
     groupHelper = new GroupHelper(wd);
     contactHelper = new ContactHelper(wd);
     navigationHelper = new NavigationHelper(wd);
