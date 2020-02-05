@@ -2,7 +2,6 @@ package sibguti.efremov.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class NavigationHelper {
   private WebDriver wd;
@@ -21,5 +20,9 @@ public class NavigationHelper {
 
   public void goToHomePage() {
     wd.findElement(By.linkText("home")).click();
+  }
+
+  public void goToContactModificationPage() {
+    wd.findElement(By.xpath("//img[@title='Edit']/..")).click();
   }
 }
