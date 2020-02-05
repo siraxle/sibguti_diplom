@@ -3,26 +3,36 @@ package sibguti.efremov.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class NavigationHelper {
-  private WebDriver wd;
+public class NavigationHelper extends HelperBase{
 
   public NavigationHelper(WebDriver wd) {
-    this.wd = wd;
+    super(wd);
   }
 
   public void goToGroupPage() {
-    wd.findElement(By.linkText("groups")).click();
+    if (isElementPresent(By.tagName("h1")) &&
+            wd.findElement(By.tagName("h1")).equals("Groups") &&
+            isElementPresent(By.name("new"))){
+      return;
+    }else {
+      click(By.linkText("groups"));
+    }
   }
 
   public void goToContactPage() {
-    wd.findElement(By.linkText("add new")).click();
+    click(By.linkText("add new"));
   }
 
   public void goToHomePage() {
-    wd.findElement(By.linkText("home")).click();
+    if (isElementPresent(By.id("maintable"))){
+      return;
+    } else {
+      click(By.linkText("home"));
+    }
+
   }
 
   public void goToContactModificationPage() {
-    wd.findElement(By.xpath("//img[@title='Edit']/..")).click();
+    click(By.xpath("//img[@title='Edit']/.."));
   }
 }
