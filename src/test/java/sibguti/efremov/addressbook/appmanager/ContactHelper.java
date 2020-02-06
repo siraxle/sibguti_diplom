@@ -6,9 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 import sibguti.efremov.addressbook.model.ContactData;
 
-import java.util.NoSuchElementException;
-
 public class ContactHelper extends HelperBase {
+
   public ContactHelper(WebDriver wd) {
     super(wd);
   }
@@ -51,4 +50,13 @@ public class ContactHelper extends HelperBase {
     click(By.name("update"));
   }
 
+  public void createContact(ContactData contact) {
+    fillContactForm(contact, true);
+    submitContactCreation();
+    returnToHomePage();
+  }
+
+  public boolean isThereAContact() {
+    return isElementPresent(By.xpath("//img[@title='Edit']/.."));
+  }
 }
