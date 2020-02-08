@@ -3,6 +3,7 @@ package sibguti.efremov.addressbook.appmanager;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import sibguti.efremov.addressbook.model.ContactData;
 
@@ -62,5 +63,20 @@ public class ContactHelper extends HelperBase {
 
   public int getContactCount() {
     return wd.findElements(By.name("entry")).size();
+  }
+
+  public WebElement selectContact(int index) {
+    int i = index + 1;
+    click(By.xpath("//tr[@name='entry'][" + i + "]//td/input"));
+    return wd.findElements(By.name("entry")).get(index);
+  }
+
+  public void initContactModification(WebElement contact) {
+    contact.findElement(By.xpath("//img[@title='Edit']/..")).click();
+  }
+
+  public void deleteContact() {
+    click(By.xpath("//input[@value='Delete']"));
+    wd.switchTo().alert().accept();
   }
 }

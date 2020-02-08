@@ -38,13 +38,4 @@ public class NavigationHelper extends HelperBase {
 
   }
 
-  public void goToContactModificationPage() {
-    if (isElementPresent(By.tagName("h1")) &&
-            wd.findElement(By.tagName("h1")).equals("Edit / add address book entry") &&
-            isElementPresent(By.name("new_group"))) {
-      return;
-    } else {
-      click(By.xpath("//img[@title='Edit']/.."));
-    }
-  }
 }
