@@ -5,6 +5,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import sibguti.efremov.addressbook.model.ContactData;
 
+import java.util.List;
+
 public class ContactModificationTests extends TestBase {
 
   @Test
@@ -18,8 +20,8 @@ public class ContactModificationTests extends TestBase {
               "test@test.com", "test.com", "test",
               "444", "test", "test1"));
     }
-    int before = app.getContactHelper().getContactCount();
-    WebElement contact = app.getContactHelper().selectContact(before - 1);
+    List<ContactData> before = app.getContactHelper().getContactList();
+    WebElement contact = app.getContactHelper().selectContact(before.size() - 1);
     app.getContactHelper().initContactModification(contact);
     app.getContactHelper().fillContactForm(new ContactData("Test", "Test",
             "Test", "Test", "Test", "Test", "Test", "Test",
@@ -28,9 +30,8 @@ public class ContactModificationTests extends TestBase {
             "444", "test", null), false);
     app.getContactHelper().submitContactModification();
     app.getNavigationHelper().goToHomePage();
-    int after = app.getContactHelper().getContactCount();
-    Assert.assertEquals(after, before - 1);
-
+    List<ContactData> after = app.getContactHelper().getContactList();
+    Assert.assertEquals(after.size(), before.size() - 1);
   }
 
 }
