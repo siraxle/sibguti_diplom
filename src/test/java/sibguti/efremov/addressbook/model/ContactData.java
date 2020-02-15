@@ -3,6 +3,7 @@ package sibguti.efremov.addressbook.model;
 import java.util.Objects;
 
 public class ContactData {
+  private final String id;
   private final String firstname;
   private final String middlename;
   private final String lastname;
@@ -23,11 +24,12 @@ public class ContactData {
   private final String notes;
   private final String group;
 
-  public ContactData(String firstname, String middlename, String lastname,
+  public ContactData(String id, String firstname, String middlename, String lastname,
                      String nickname, String title, String company, String address,
                      String home, String mobile, String work, String fax, String email,
                      String email2, String email3, String homepage,
                      String address2, String phone2, String notes, String group) {
+    this.id = id;
     this.firstname = firstname;
     this.middlename = middlename;
     this.lastname = lastname;
@@ -47,6 +49,37 @@ public class ContactData {
     this.phone2 = phone2;
     this.notes = notes;
     this.group = group;
+  }
+
+  public ContactData(String firstname, String middlename, String lastname,
+                     String nickname, String title, String company, String address,
+                     String home, String mobile, String work, String fax, String email,
+                     String email2, String email3, String homepage,
+                     String address2, String phone2, String notes, String group) {
+    this.id = null;
+    this.firstname = firstname;
+    this.middlename = middlename;
+    this.lastname = lastname;
+    this.nickname = nickname;
+    this.title = title;
+    this.company = company;
+    this.address = address;
+    this.home = home;
+    this.mobile = mobile;
+    this.work = work;
+    this.fax = fax;
+    this.email = email;
+    this.email2 = email2;
+    this.email3 = email3;
+    this.homepage = homepage;
+    this.address2 = address2;
+    this.phone2 = phone2;
+    this.notes = notes;
+    this.group = group;
+  }
+
+  public String getId() {
+    return id;
   }
 
   public String getFirstname() {
@@ -128,12 +161,14 @@ public class ContactData {
   @Override
   public String toString() {
     return "ContactData{" +
-            "firstname='" + firstname + '\'' +
+            "id='" + id + '\'' +
+            ", firstname='" + firstname + '\'' +
             ", middlename='" + middlename + '\'' +
             ", lastname='" + lastname + '\'' +
             ", nickname='" + nickname + '\'' +
             ", mobile='" + mobile + '\'' +
             ", email='" + email + '\'' +
+            ", address2='" + address2 + '\'' +
             '}';
   }
 
@@ -142,7 +177,8 @@ public class ContactData {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ContactData that = (ContactData) o;
-    return Objects.equals(firstname, that.firstname) &&
+    return Objects.equals(id, that.id) &&
+            Objects.equals(firstname, that.firstname) &&
             Objects.equals(middlename, that.middlename) &&
             Objects.equals(lastname, that.lastname) &&
             Objects.equals(nickname, that.nickname) &&
@@ -153,7 +189,7 @@ public class ContactData {
 
   @Override
   public int hashCode() {
-    return Objects.hash(firstname, middlename, lastname, nickname,
+    return Objects.hash(id, firstname, middlename, lastname, nickname,
             mobile, email, address2);
   }
 }

@@ -5,6 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import sibguti.efremov.addressbook.model.ContactData;
 
+import java.util.HashSet;
 import java.util.List;
 
 public class ContactModificationTests extends TestBase {
@@ -14,24 +15,29 @@ public class ContactModificationTests extends TestBase {
     app.getNavigationHelper().goToHomePage();
     if (!app.getContactHelper().isThereAContact()) {
       app.getNavigationHelper().goToContactCreationPage();
-      app.getContactHelper().createContact(new ContactData("Test", "Test",
+      app.getContactHelper().createContact(new ContactData( "Test", "Test",
               "Test", "Test", "Test", "Test", "Test", "Test",
               "1111", "222", "333", "test@test.com", "test@test.com",
               "test@test.com", "test.com", "test",
               "444", "test", "test1"));
     }
     List<ContactData> before = app.getContactHelper().getContactList();
-    WebElement contact = app.getContactHelper().selectContact(before.size() - 1);
-    app.getContactHelper().initContactModification(contact);
-    app.getContactHelper().fillContactForm(new ContactData("Test", "Test",
+    WebElement selectedContact = app.getContactHelper().selectContact(before.size() - 1);
+    app.getContactHelper().initContactModification(selectedContact);
+    ContactData contact = new ContactData(
+            before.get(before.size() - 1).getId(),"Test", "Test",
             "Test", "Test", "Test", "Test", "Test", "Test",
             "1111", "222", "333", "test@test.com", "test@test.com",
             "test@test.com", "test.com", "test",
-            "444", "test", null), false);
+            "444", "test", null);
+    app.getContactHelper().fillContactForm(contact, false);
     app.getContactHelper().submitContactModification();
     app.getNavigationHelper().goToHomePage();
     List<ContactData> after = app.getContactHelper().getContactList();
     Assert.assertEquals(after.size(), before.size() - 1);
+    before.remove(before.size() - 1);
+    //before.add(contact);
+    Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
   }
 
 }
