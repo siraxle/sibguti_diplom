@@ -3,7 +3,7 @@ package sibguti.efremov.addressbook.model;
 import java.util.Objects;
 
 public class ContactData {
-  private final String id;
+  private int id;
   private final String firstname;
   private final String middlename;
   private final String lastname;
@@ -24,7 +24,7 @@ public class ContactData {
   private final String notes;
   private final String group;
 
-  public ContactData(String id, String firstname, String middlename, String lastname,
+  public ContactData(int id, String firstname, String middlename, String lastname,
                      String nickname, String title, String company, String address,
                      String home, String mobile, String work, String fax, String email,
                      String email2, String email3, String homepage,
@@ -56,7 +56,7 @@ public class ContactData {
                      String home, String mobile, String work, String fax, String email,
                      String email2, String email3, String homepage,
                      String address2, String phone2, String notes, String group) {
-    this.id = null;
+    this.id = 0;
     this.firstname = firstname;
     this.middlename = middlename;
     this.lastname = lastname;
@@ -78,7 +78,7 @@ public class ContactData {
     this.group = group;
   }
 
-  public String getId() {
+  public int getId() {
     return id;
   }
 
@@ -158,6 +158,10 @@ public class ContactData {
     return group;
   }
 
+  public void setId(int id) {
+    this.id = id;
+  }
+
   @Override
   public String toString() {
     return "ContactData{" +
@@ -177,19 +181,13 @@ public class ContactData {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ContactData that = (ContactData) o;
-    return Objects.equals(id, that.id) &&
-            Objects.equals(firstname, that.firstname) &&
-            Objects.equals(middlename, that.middlename) &&
-            Objects.equals(lastname, that.lastname) &&
-            Objects.equals(nickname, that.nickname) &&
-            Objects.equals(mobile, that.mobile) &&
-            Objects.equals(email, that.email) &&
-            Objects.equals(address2, that.address2);
+    return id == that.id &&
+            Objects.equals(lastname, that.lastname);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, firstname, middlename, lastname, nickname,
-            mobile, email, address2);
+
+    return Objects.hash(id, lastname);
   }
 }
