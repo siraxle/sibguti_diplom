@@ -71,11 +71,15 @@ public class ContactHelper extends HelperBase {
   public WebElement selectContact(int index) {
     int i = index + 1;
     click(By.xpath("//tr[@name='entry'][" + i + "]//td/input"));
-    return wd.findElements(By.name("entry")).get(index);
+    WebElement el = wd.findElement(By.xpath("//tr[@name='entry'][" + i + "]"));
+    String id = wd.findElement(By.xpath("//tr[@name = 'entry'][" + i + "]/td[1]/input")).getAttribute("id");
+    return el;
   }
 
   public void initContactModification(WebElement contact) {
-    contact.findElement(By.xpath("//img[@title='Edit']/..")).click();
+    String id = contact.findElement(By.xpath(".//input[@type='checkbox']")).
+            getAttribute("id");
+    contact.findElement(By.xpath(".//img[@title='Edit']/..")).click();
   }
 
   public void deleteContact() {
@@ -87,13 +91,16 @@ public class ContactHelper extends HelperBase {
     List<ContactData> contacts = new ArrayList<ContactData>();
     List<WebElement> elements = wd.findElements(By.name("entry"));
     for (int i = 0; i < elements.size(); i++) {
+      String firstName = elements.get(i).findElement(
+              By.xpath("//tr[@name = 'entry'][" + (i + 1) + "]/td[3]"))
+              .getText();
       String lastName = elements.get(i).findElement(
               By.xpath("//tr[@name = 'entry'][" + (i + 1) + "]/td[2]"))
               .getText();
       int id = Integer.parseInt(elements.get(i).findElement(
               By.xpath("//tr[@name = 'entry'][" + (i + 1) + "]/td[1]/input"))
               .getAttribute("id"));
-      ContactData contact = new ContactData(id, null, null, lastName,
+      ContactData contact = new ContactData(id, firstName, null, lastName,
               null, null, null, null, null, null,
               null, null, null, null, null, null,
               null, null, null, null);
