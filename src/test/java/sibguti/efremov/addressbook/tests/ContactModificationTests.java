@@ -15,11 +15,11 @@ public class ContactModificationTests extends TestBase {
     app.goTo().homePage();
     if (app.contact().list().size() == 0) {
       app.goTo().contactCreationPage();
-      app.contact().create(new ContactData("Test", "Test",
-              "Test", "Test", "Test", "Test", "Test", "Test",
-              "1111", "222", "333", "test@test.com", "test@test.com",
-              "test@test.com", "test.com", "test",
-              "444", "test", "test1"));
+      app.contact().create(new ContactData().setAddress("test").setAddress2("test").
+              setCompany("test").setEmail("test").setEmail2("test").setEmail3("test").
+              setFax("111").setFirstname("test").setGroup("test1").setHome("test").
+              setHomepage("test").setLastname("test").setMiddlename("test").
+              setMobile("222").setNickname("test").setNotes("test").setPhone2("333"));
     }
   }
 

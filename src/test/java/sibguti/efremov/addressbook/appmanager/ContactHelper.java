@@ -66,12 +66,11 @@ public class ContactHelper extends HelperBase {
     String id = selectedContact.findElement(By.xpath(".//input[@type='checkbox']")).
             getAttribute("id");
     initContactModification(selectedContact);
-    ContactData contact = new ContactData(
-            before.get(index).getId(), "Test", "Test",
-            "Test", "Test", "Test", "Test", "Test", "Test",
-            "1111", "222", "333", "test@test.com", "test@test.com",
-            "test@test.com", "test.com", "test",
-            "444", "test", null);
+    ContactData contact = new ContactData().setAddress("test").setAddress2("test").
+            setCompany("test").setEmail("test").setEmail2("test").setEmail3("test").
+            setFax("111").setFirstname("test").setHome("test").
+            setHomepage("test").setLastname("test").setMiddlename("test").
+            setMobile("222").setNickname("test").setNotes("test").setPhone2("333");
     fillContactForm(contact, false);
     submitContactModification();
   }
@@ -121,10 +120,8 @@ public class ContactHelper extends HelperBase {
       int id = Integer.parseInt(elements.get(i).findElement(
               By.xpath("//tr[@name = 'entry'][" + (i + 1) + "]/td[1]/input"))
               .getAttribute("id"));
-      ContactData contact = new ContactData(id, firstName, null, lastName,
-              null, null, null, null, null, null,
-              null, null, null, null, null, null,
-              null, null, null, null);
+      ContactData contact = new ContactData().setId(id).setFirstname(firstName).
+              setLastname(lastName);
       contacts.add(contact);
     }
     return contacts;
