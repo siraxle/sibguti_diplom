@@ -60,6 +60,22 @@ public class ContactHelper extends HelperBase {
     returnToHomePage();
   }
 
+  public void modifyContact(List<ContactData> before, int index) {
+    WebElement selectedContact = selectContact(index);
+    System.out.println(selectedContact);
+    String id = selectedContact.findElement(By.xpath(".//input[@type='checkbox']")).
+            getAttribute("id");
+    initContactModification(selectedContact);
+    ContactData contact = new ContactData(
+            before.get(index).getId(), "Test", "Test",
+            "Test", "Test", "Test", "Test", "Test", "Test",
+            "1111", "222", "333", "test@test.com", "test@test.com",
+            "test@test.com", "test.com", "test",
+            "444", "test", null);
+    fillContactForm(contact, false);
+    submitContactModification();
+  }
+
   public boolean isThereAContact() {
     return isElementPresent(By.xpath("//img[@title='Edit']/.."));
   }
