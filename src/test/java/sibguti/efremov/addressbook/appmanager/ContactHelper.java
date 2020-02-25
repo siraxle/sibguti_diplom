@@ -7,8 +7,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import sibguti.efremov.addressbook.model.ContactData;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ContactHelper extends HelperBase {
 
@@ -60,18 +61,17 @@ public class ContactHelper extends HelperBase {
     returnToHomePage();
   }
 
-  public void modifyContact(List<ContactData> before, int index) {
-    WebElement selectedContact = selectContact(index);
-    System.out.println(selectedContact);
-    String id = selectedContact.findElement(By.xpath(".//input[@type='checkbox']")).
+  public void modifyContact(ContactData contact) {
+    WebElement selectedContact = selectContactById(contact.getId());
+    String id = selectedContact.findElement(By.xpath("//input[@value=" + contact.getId() + "]")).
             getAttribute("id");
-    initContactModification(selectedContact);
-    ContactData contact = new ContactData().setAddress("test").setAddress2("test").
-            setCompany("test").setEmail("test").setEmail2("test").setEmail3("test").
-            setFax("111").setFirstname("test").setHome("test").
-            setHomepage("test").setLastname("test").setMiddlename("test").
-            setMobile("222").setNickname("test").setNotes("test").setPhone2("333");
-    fillContactForm(contact, false);
+    initContactModification(selectedContact, id);
+    ContactData modifiedContact = new ContactData().withAddress("test").withAddress2("test").
+            withCompany("test").withEmail("test").withEmail2("test").withEmail3("test").
+            withFax("111").withFirstname("test").withHome("test").
+            witHomePage("test").withLastname("test").withMiddlename("test").
+            withMobile("222").withNickname("test").withNotes("test").withPhone2("333");
+    fillContactForm(modifiedContact, false);
     submitContactModification();
   }
 
@@ -91,10 +91,15 @@ public class ContactHelper extends HelperBase {
     return el;
   }
 
-  public void initContactModification(WebElement contact) {
-    String id = contact.findElement(By.xpath(".//input[@type='checkbox']")).
-            getAttribute("id");
-    contact.findElement(By.xpath(".//img[@title='Edit']/..")).click();
+  private WebElement selectContactById(int id) {
+    click(By.xpath("//input[@value=" + id + "]"));
+    WebElement el = wd.findElement(By.xpath("//input[@value=" + id + "]"));
+    String ident = wd.findElement(By.xpath("//input[@value=" + id + "]")).getAttribute("id");
+    return el;
+  }
+
+  public void initContactModification(WebElement contact, String id) {
+    wd.findElement(By.xpath("//input[@value=" + id + "]/../..//img[@title='Edit']/..")).click();
   }
 
   public void deleteContact() {
@@ -107,8 +112,13 @@ public class ContactHelper extends HelperBase {
     deleteContact();
   }
 
-  public List<ContactData> list() {
-    List<ContactData> contacts = new ArrayList<ContactData>();
+  public void delete(ContactData contact) {
+    selectContactById(contact.getId());
+    deleteContact();
+  }
+
+  public Set<ContactData> all() {
+    Set<ContactData> contacts = new HashSet<ContactData>();
     List<WebElement> elements = wd.findElements(By.name("entry"));
     for (int i = 0; i < elements.size(); i++) {
       String firstName = elements.get(i).findElement(
@@ -120,8 +130,8 @@ public class ContactHelper extends HelperBase {
       int id = Integer.parseInt(elements.get(i).findElement(
               By.xpath("//tr[@name = 'entry'][" + (i + 1) + "]/td[1]/input"))
               .getAttribute("id"));
-      ContactData contact = new ContactData().setId(id).setFirstname(firstName).
-              setLastname(lastName);
+      ContactData contact = new ContactData().withId(id).withFirstname(firstName).
+              withLastname(lastName);
       contacts.add(contact);
     }
     return contacts;

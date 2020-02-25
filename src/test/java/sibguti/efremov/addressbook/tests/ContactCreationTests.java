@@ -4,28 +4,26 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import sibguti.efremov.addressbook.model.ContactData;
 
-import java.util.HashSet;
-import java.util.List;
+import java.util.Set;
 
 public class ContactCreationTests extends TestBase {
 
   @Test
   public void testContactCreation() {
     app.goTo().homePage();
-    List<ContactData> before = app.contact().list();
+    Set<ContactData> before = app.contact().all();
     app.goTo().contactCreationPage();
-    ContactData contact = new ContactData().setAddress("test2").setAddress2("test").
-            setCompany("test2").setEmail("test2").setEmail2("test2").setEmail3("test2").
-            setFax("111").setFirstname("test").setGroup("test1").setHome("test2").
-            setHomepage("test2").setLastname("test2").setMiddlename("test2").
-            setMobile("222").setNickname("test2").setNotes("test2").setPhone2("333");
+    ContactData contact = new ContactData().withAddress("test2").withAddress2("test").
+            withCompany("test2").withEmail("test2").withEmail2("test2").withEmail3("test2").
+            withFax("111").withFirstname("test").withGroup("test1").withHome("test2").
+            witHomePage("test2").withLastname("test2").withMiddlename("test2").
+            withMobile("222").withNickname("test2").withNotes("test2").withPhone2("333");
     app.contact().create(contact);
-    List<ContactData> after = app.contact().list();
+    Set<ContactData> after = app.contact().all();
     Assert.assertEquals(after.size(), before.size() + 1);
+    contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt());
     before.add(contact);
-    contact.setId(after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).
-            get().getId());
-    Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
+    Assert.assertEquals(before, after);
   }
 
 }

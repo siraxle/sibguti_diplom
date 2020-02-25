@@ -104,105 +104,107 @@ public class ContactData {
     return group;
   }
 
-  public ContactData setId(int id) {
+  public ContactData withId(int id) {
     this.id = id;
     return this;
   }
 
-  public ContactData setFirstname(String firstname) {
+  public ContactData withFirstname(String firstname) {
     this.firstname = firstname;
     return this;
   }
 
-  public ContactData setMiddlename(String middlename) {
+  public ContactData withMiddlename(String middlename) {
     this.middlename = middlename;
     return this;
   }
 
-  public ContactData setLastname(String lastname) {
+  public ContactData withLastname(String lastname) {
     this.lastname = lastname;
     return this;
   }
 
-  public ContactData setNickname(String nickname) {
+  public ContactData withNickname(String nickname) {
     this.nickname = nickname;
     return this;
   }
 
-  public ContactData setTitle(String title) {
+  public ContactData withTitle(String title) {
     this.title = title;
     return this;
   }
 
-  public ContactData setCompany(String company) {
+  public ContactData withCompany(String company) {
     this.company = company;
     return this;
   }
 
-  public ContactData setAddress(String address) {
+  public ContactData withAddress(String address) {
     this.address = address;
     return this;
   }
 
-  public ContactData setHome(String home) {
+  public ContactData withHome(String home) {
     this.home = home;
     return this;
   }
 
-  public ContactData setMobile(String mobile) {
+  public ContactData withMobile(String mobile) {
     this.mobile = mobile;
     return this;
   }
 
-  public ContactData setWork(String work) {
+  public ContactData withWork(String work) {
     this.work = work;
     return this;
   }
 
-  public ContactData setFax(String fax) {
+  public ContactData withFax(String fax) {
     this.fax = fax;
     return this;
   }
 
-  public ContactData setEmail(String email) {
+  public ContactData withEmail(String email) {
     this.email = email;
     return this;
   }
 
-  public ContactData setEmail2(String email2) {
+  public ContactData withEmail2(String email2) {
     this.email2 = email2;
     return this;
   }
 
-  public ContactData setEmail3(String email3) {
+  public ContactData withEmail3(String email3) {
     this.email3 = email3;
     return this;
   }
 
-  public ContactData setHomepage(String homepage) {
+  public ContactData witHomePage(String homepage) {
     this.homepage = homepage;
     return this;
   }
 
-  public ContactData setAddress2(String address2) {
+  public ContactData withAddress2(String address2) {
     this.address2 = address2;
     return this;
   }
 
-  public ContactData setPhone2(String phone2) {
+  public ContactData withPhone2(String phone2) {
     this.phone2 = phone2;
     return this;
   }
 
-  public ContactData setNotes(String notes) {
+  public ContactData withNotes(String notes) {
     this.notes = notes;
     return this;
   }
 
-  public ContactData setGroup(String group) {
+  public ContactData withGroup(String group) {
     this.group = group;
     return this;
   }
+
+
 
   @Override
   public String toString() {
@@ -230,6 +232,7 @@ public class ContactData {
 
   @Override
   public int hashCode() {
+
     return Objects.hash(id, firstname, lastname);
   }
 }

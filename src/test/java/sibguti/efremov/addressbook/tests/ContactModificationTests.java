@@ -7,33 +7,34 @@ import sibguti.efremov.addressbook.model.ContactData;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ContactModificationTests extends TestBase {
 
   @BeforeMethod
   public void ensurePreconditions() {
     app.goTo().homePage();
-    if (app.contact().list().size() == 0) {
+    if (app.contact().all().size() == 0) {
       app.goTo().contactCreationPage();
-      app.contact().create(new ContactData().setAddress("test").setAddress2("test").
-              setCompany("test").setEmail("test").setEmail2("test").setEmail3("test").
-              setFax("111").setFirstname("test").setGroup("test1").setHome("test").
-              setHomepage("test").setLastname("test").setMiddlename("test").
-              setMobile("222").setNickname("test").setNotes("test").setPhone2("333"));
+      app.contact().create(new ContactData().withAddress("test").withAddress2("test").
+              withCompany("test").withEmail("test").withEmail2("test").withEmail3("test").
+              withFax("111").withFirstname("test").withGroup("test1").withHome("test").
+              witHomePage("test").withLastname("test").withMiddlename("test").
+              withMobile("222").withNickname("test").withNotes("test").withPhone2("333"));
     }
   }
 
   @Test
   public void testContactModification() {
-    List<ContactData> before = app.contact().list();
-    int index = before.size() - 1;
-    app.contact().modifyContact(before, index);
-    List<ContactData> after = app.contact().list();
+    Set<ContactData> before = app.contact().all();
+    ContactData modifiedContact = before.iterator().next();
+    app.contact().modifyContact(modifiedContact);
     app.goTo().homePage();
-    Assert.assertEquals(after.size(), index);
-    before.remove(index);
+    Set<ContactData> after = app.contact().all();
+    Assert.assertEquals(after.size(), before.size() - 1);
+    before.remove(modifiedContact);
     //before.add(contact);
-    Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
+    Assert.assertEquals(before, after);
   }
 
 }
