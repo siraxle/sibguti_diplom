@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import sibguti.efremov.addressbook.model.ContactData;
+import sibguti.efremov.addressbook.model.Contacts;
 
 import java.util.HashSet;
 import java.util.List;
@@ -61,17 +62,12 @@ public class ContactHelper extends HelperBase {
     returnToHomePage();
   }
 
-  public void modifyContact(ContactData contact) {
-    WebElement selectedContact = selectContactById(contact.getId());
-    String id = selectedContact.findElement(By.xpath("//input[@value=" + contact.getId() + "]")).
+  public void modify(ContactData modifiedContact, ContactData contact) {
+    WebElement selectedContact = selectContactById(modifiedContact.getId());
+    String id = selectedContact.findElement(By.xpath("//input[@value=" + modifiedContact.getId() + "]")).
             getAttribute("id");
     initContactModification(selectedContact, id);
-    ContactData modifiedContact = new ContactData().withAddress("test").withAddress2("test").
-            withCompany("test").withEmail("test").withEmail2("test").withEmail3("test").
-            withFax("111").withFirstname("test").withHome("test").
-            witHomePage("test").withLastname("test").withMiddlename("test").
-            withMobile("222").withNickname("test").withNotes("test").withPhone2("333");
-    fillContactForm(modifiedContact, false);
+    fillContactForm(contact, false);
     submitContactModification();
   }
 
@@ -117,8 +113,8 @@ public class ContactHelper extends HelperBase {
     deleteContact();
   }
 
-  public Set<ContactData> all() {
-    Set<ContactData> contacts = new HashSet<ContactData>();
+  public Contacts all() {
+    Contacts contacts = new Contacts();
     List<WebElement> elements = wd.findElements(By.name("entry"));
     for (int i = 0; i < elements.size(); i++) {
       String firstName = elements.get(i).findElement(

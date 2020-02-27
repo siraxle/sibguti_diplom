@@ -4,10 +4,11 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import sibguti.efremov.addressbook.model.ContactData;
+import sibguti.efremov.addressbook.model.Contacts;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.*;
+import static org.testng.Assert.assertEquals;
 
 public class ContactModificationTests extends TestBase {
 
@@ -26,15 +27,18 @@ public class ContactModificationTests extends TestBase {
 
   @Test
   public void testContactModification() {
-    Set<ContactData> before = app.contact().all();
+    Contacts before = app.contact().all();
     ContactData modifiedContact = before.iterator().next();
-    app.contact().modifyContact(modifiedContact);
+    ContactData contact = new ContactData().withAddress("test").withAddress2("test").
+            withCompany("test").withEmail("test").withEmail2("test").withEmail3("test").
+            withFax("111").withFirstname("test").withHome("test").
+            witHomePage("test").withLastname("test").withMiddlename("test").
+            withMobile("222").withNickname("test").withNotes("test").withPhone2("333");
+    app.contact().modify(modifiedContact, contact);
     app.goTo().homePage();
-    Set<ContactData> after = app.contact().all();
-    Assert.assertEquals(after.size(), before.size() - 1);
-    before.remove(modifiedContact);
-    //before.add(contact);
-    Assert.assertEquals(before, after);
+    Contacts after = app.contact().all();
+    assertEquals(after.size(), before.size() - 1);
+    assertThat(after, equalTo(before.without(modifiedContact).without(contact)));
   }
 
 }
