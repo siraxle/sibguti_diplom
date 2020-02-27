@@ -8,9 +8,7 @@ import org.openqa.selenium.support.ui.Select;
 import sibguti.efremov.addressbook.model.ContactData;
 import sibguti.efremov.addressbook.model.Contacts;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ContactHelper extends HelperBase {
 
@@ -59,6 +57,7 @@ public class ContactHelper extends HelperBase {
   public void create(ContactData contact) {
     fillContactForm(contact, true);
     submitContactCreation();
+    contactsHash = null;
     returnToHomePage();
   }
 
@@ -69,6 +68,7 @@ public class ContactHelper extends HelperBase {
     initContactModification(selectedContact, id);
     fillContactForm(contact, false);
     submitContactModification();
+    contactsHash = null;
   }
 
   public boolean isThereAContact() {
@@ -101,20 +101,19 @@ public class ContactHelper extends HelperBase {
   public void deleteContact() {
     click(By.xpath("//input[@value='Delete']"));
     wd.switchTo().alert().accept();
-  }
-
-  public void delete(int index) {
-    selectContact(index);
-    deleteContact();
+    contactsHash = null;
   }
 
   public void delete(ContactData contact) {
     selectContactById(contact.getId());
     deleteContact();
+    contactsHash = null;
   }
 
+  Contacts contactsHash = null;
+
   public Contacts all() {
-    Contacts contacts = new Contacts();
+    contactsHash = new Contacts();
     List<WebElement> elements = wd.findElements(By.name("entry"));
     for (int i = 0; i < elements.size(); i++) {
       String firstName = elements.get(i).findElement(
@@ -128,8 +127,8 @@ public class ContactHelper extends HelperBase {
               .getAttribute("id"));
       ContactData contact = new ContactData().withId(id).withFirstname(firstName).
               withLastname(lastName);
-      contacts.add(contact);
+      contactsHash.add(contact);
     }
-    return contacts;
+    return new Contacts(contactsHash);
   }
 }
