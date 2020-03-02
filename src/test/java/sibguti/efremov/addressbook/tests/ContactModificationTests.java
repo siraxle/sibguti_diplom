@@ -1,6 +1,5 @@
 package sibguti.efremov.addressbook.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import sibguti.efremov.addressbook.model.ContactData;
@@ -19,9 +18,9 @@ public class ContactModificationTests extends TestBase {
       app.goTo().contactCreationPage();
       app.contact().create(new ContactData().withAddress("test").withAddress2("test").
               withCompany("test").withEmail("test").withEmail2("test").withEmail3("test").
-              withFax("111").withFirstname("test").withGroup("test1").withHome("test").
+              withFax("111").withFirstname("test").withGroup("test1").withHomePhone("test").
               witHomePage("test").withLastname("test").withMiddlename("test").
-              withMobile("222").withNickname("test").withNotes("test").withPhone2("333"));
+              withMobilePhone("222").withNickname("test").withNotes("test").withPhone2("333"));
     }
   }
 
@@ -31,9 +30,9 @@ public class ContactModificationTests extends TestBase {
     ContactData modifiedContact = before.iterator().next();
     ContactData contact = new ContactData().withAddress("test").withAddress2("test").
             withCompany("test").withEmail("test").withEmail2("test").withEmail3("test").
-            withFax("111").withFirstname("test").withHome("test").
+            withFax("111").withFirstname("test").withHomePhone("test").
             witHomePage("test").withLastname("test").withMiddlename("test").
-            withMobile("222").withNickname("test").withNotes("test").withPhone2("333");
+            withMobilePhone("222").withNickname("test").withNotes("test").withPhone2("333");
     app.contact().modify(modifiedContact, contact);
     app.goTo().homePage();
     Contacts after = app.contact().all();

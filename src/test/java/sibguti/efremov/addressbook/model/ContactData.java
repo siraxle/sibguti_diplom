@@ -144,17 +144,17 @@ public class ContactData {
     return this;
   }
 
-  public ContactData withHome(String home) {
+  public ContactData withHomePhone(String home) {
     this.home = home;
     return this;
   }
 
-  public ContactData withMobile(String mobile) {
+  public ContactData withMobilePhone(String mobile) {
     this.mobile = mobile;
     return this;
   }
 
-  public ContactData withWork(String work) {
+  public ContactData withWorkPhone(String work) {
     this.work = work;
     return this;
   }
