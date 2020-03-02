@@ -144,10 +144,8 @@ public class ContactHelper extends HelperBase {
       String allPhones = elements.get(i).findElement(
               By.xpath("//tr[@name = 'entry'][" + (i + 1) + "]/td[6]"))
               .getText();
-      String[] phones = allPhones.split("\n");
       ContactData contact = new ContactData().withId(id).withFirstname(firstName).
-              withLastname(lastName).withHomePhone(phones[0]).withMobilePhone(phones[1]).
-              withWorkPhone(phones[2]);
+              withLastname(lastName).withAllPhones(allPhones);
       contactsHash.add(contact);
     }
     return new Contacts(contactsHash);
