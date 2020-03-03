@@ -14,7 +14,7 @@ public class ContactCreationTests extends TestBase {
     app.goTo().homePage();
     Contacts before = app.contact().all();
     app.goTo().contactCreationPage();
-    ContactData contact = new ContactData().withAddress("test2").withAddress2("test").
+    ContactData contact = new ContactData().withAddress("address1").withAddress2("address2").
             withCompany("test2").withEmail("test2").withEmail2("test2").withEmail3("test2").
             withFax("111").withFirstname("test").withGroup("test1").withHomePhone("test2").
             witHomePage("test2").withLastname("test2").withMiddlename("test2").
