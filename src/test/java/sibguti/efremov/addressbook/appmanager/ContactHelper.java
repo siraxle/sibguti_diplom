@@ -28,7 +28,7 @@ public class ContactHelper extends HelperBase {
     type(By.name("mobile"), contactData.getMobilePhone());
     type(By.name("work"), contactData.getWorkPhone());
     type(By.name("fax"), contactData.getFaxPhone());
-    type(By.name("email"), contactData.getEmail1());
+    type(By.name("email"), contactData.getEmail());
     type(By.name("email2"), contactData.getEmail2());
     type(By.name("email3"), contactData.getEmail3());
     type(By.name("homepage"), contactData.getHomepage());
@@ -79,9 +79,13 @@ public class ContactHelper extends HelperBase {
     String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
     String work = wd.findElement(By.name("work")).getAttribute("value");
     String address = wd.findElement(By.name("address")).getText();
+    String email = wd.findElement(By.name("email")).getAttribute("value");
+    String email2 = wd.findElement(By.name("email2")).getAttribute("value");
+    String email3 = wd.findElement(By.name("email3")).getAttribute("value");
     wd.navigate().back();
     return new ContactData().withId(contact.getId()).withFirstname(firstName).withLastname(lastName).
-            withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work).withAddress(address);
+            withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work).withAddress(address).
+            withEmail(email).withEmail2(email2).withEmail3(email3);
   }
 
   private void initContactModificationById(int id) {
@@ -148,8 +152,12 @@ public class ContactHelper extends HelperBase {
       String address = elements.get(i).findElement(
               By.xpath("//tr[@name = 'entry'][" + (i + 1) + "]/td[4]"))
               .getText();
+      String allEmails = elements.get(i).findElement(
+              By.xpath("//tr[@name = 'entry'][" + (i + 1) + "]/td[5]"))
+              .getText();
       ContactData contact = new ContactData().withId(id).withFirstname(firstName).
-              withLastname(lastName).withAllPhones(allPhones).withAddress(address);
+              withLastname(lastName).withAllPhones(allPhones).withAddress(address).
+              withAllEmails(allEmails);
       contactsHash.add(contact);
     }
     return new Contacts(contactsHash);
