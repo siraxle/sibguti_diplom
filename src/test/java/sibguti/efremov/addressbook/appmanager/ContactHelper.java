@@ -131,6 +131,17 @@ public class ContactHelper extends HelperBase {
     contactsHash = null;
   }
 
+  public String getContactInfoFromDetailsPage(ContactData contact) {
+    WebElement selectedContact = selectContactById(contact.getId());
+    selectedContact.findElement(By.xpath("//td[7]//a")).click();
+    String detailsPageInformation = wd.findElement(By.id("content")).getText()
+            .replaceAll("\\s", "")
+            .replaceAll("[H,M,P]", "")
+            .replaceAll("[:]", "");
+    detailsPageInformation = detailsPageInformation.substring(0, 42);
+    return detailsPageInformation;
+  }
+
   Contacts contactsHash = null;
 
   public Contacts all() {
