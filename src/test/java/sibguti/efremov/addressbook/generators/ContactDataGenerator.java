@@ -55,7 +55,6 @@ public class ContactDataGenerator {
 
   private List<ContactData> generateContacts(int count) {
     List<ContactData> contacts = new ArrayList<ContactData>();
-    File photo = new File("src/test/resources/photo_001.jpg");
     for (int i = 0; i < count; i++) {
       contacts.add(new ContactData().withAddress(String.format("address %s", i))
               .withAddress2(String.format("address %s", i))
@@ -65,7 +64,7 @@ public class ContactDataGenerator {
               .withGroup(String.format("group %s", i)).withHomePhone(String.format("111%s", i))
               .witHomePage(String.format("homepage %s", i)).withLastname(String.format("lastname %s", i))
               .withMobilePhone(String.format("222%s", i)).withNotes(String.format("notes %s", i))
-              .withPhone2(String.format("333%s", i)).withPhoto(photo));
+              .withPhone2(String.format("333%s", i)));
     }
     return contacts;
   }
