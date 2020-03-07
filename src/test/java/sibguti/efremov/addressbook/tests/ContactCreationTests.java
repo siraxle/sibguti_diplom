@@ -4,7 +4,6 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import sibguti.efremov.addressbook.model.ContactData;
 import sibguti.efremov.addressbook.model.Contacts;
-import sibguti.efremov.addressbook.model.GroupData;
 
 import java.io.File;
 import java.util.ArrayList;
