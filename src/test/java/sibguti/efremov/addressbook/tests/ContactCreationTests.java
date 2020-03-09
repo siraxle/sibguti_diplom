@@ -20,14 +20,15 @@ public class ContactCreationTests extends TestBase {
 
   @DataProvider
   public Iterator<Object[]> validContacts() throws IOException {
-    File photo = new File("src/test/resources/photo_001.jpg");
+    File photo = new File(String.format("src/test/resources/ava_00%s.png",
+            1 + (int) (Math.random() * 9)));
     List<Object[]> list = new ArrayList<Object[]>();
     BufferedReader reader = new BufferedReader(new FileReader
             (new File("src\\test\\resources\\contacts.csv")));
     String line = reader.readLine();
     while (line != null) {
       String[] split = line.split(";");
-      list.add(new Object[] {new ContactData().withAddress(split[0])
+      list.add(new Object[]{new ContactData().withAddress(split[0])
               .withAddress2(split[1])
               .withCompany(split[2]).withEmail(split[3])
               .withEmail2(split[4]).withEmail3(split[5])
@@ -57,7 +58,7 @@ public class ContactCreationTests extends TestBase {
   public void testCurrentDir() {
     File currentDir = new File(".");
     System.out.println(currentDir.getAbsoluteFile());
-    File photo = new File("src/test/resources/photo_001.jpg");
+    File photo = new File("src/test/resources/ava_001.jpg");
     System.out.println(photo.getAbsoluteFile());
     System.out.println(photo.exists());
   }

@@ -1,11 +1,15 @@
 package sibguti.efremov.addressbook.model;
 
-import java.util.Objects;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
+import java.util.Objects;
+@XStreamAlias("group")
 public class GroupData {
   private String name;
   private String header;
   private String footer;
+  @XStreamOmitField
   private int id = Integer.MAX_VALUE;
 
   public String getName() {
