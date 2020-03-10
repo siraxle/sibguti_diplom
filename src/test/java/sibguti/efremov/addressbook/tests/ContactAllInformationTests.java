@@ -1,7 +1,6 @@
 package sibguti.efremov.addressbook.tests;
 
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 import sibguti.efremov.addressbook.model.ContactData;
 
 import static org.hamcrest.CoreMatchers.equalTo;

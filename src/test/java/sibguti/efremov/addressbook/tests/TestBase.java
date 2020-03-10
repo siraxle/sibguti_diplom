@@ -10,7 +10,7 @@ public class TestBase {
   public static final ApplicationManager app = new ApplicationManager(BrowserType.CHROME);
 
   @BeforeSuite
-  public void setUp(){
+  public void setUp() {
     app.init();
   }
 
@@ -19,4 +19,4 @@ public class TestBase {
     app.stop();
   }
 
- }
+}

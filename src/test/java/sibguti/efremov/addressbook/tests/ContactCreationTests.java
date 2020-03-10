@@ -19,7 +19,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class ContactCreationTests extends TestBase {
 
   @DataProvider
-  public Iterator<Object[]> validContacts() throws IOException {
+  public Iterator<Object[]> validContactsFromCsv() throws IOException {
     File photo = new File(String.format("src/test/resources/ava_00%s.png",
             1 + (int) (Math.random() * 9)));
     List<Object[]> list = new ArrayList<Object[]>();
@@ -42,7 +42,7 @@ public class ContactCreationTests extends TestBase {
     return list.iterator();
   }
 
-  @Test(dataProvider = "validContacts")
+  @Test(dataProvider = "validContactsCsv")
   public void testContactCreation(ContactData contact) {
     app.goTo().homePage();
     Contacts before = app.contact().all();
