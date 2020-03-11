@@ -1,0 +1,22 @@
+[
+  {
+    "firstname": "firstname 0",
+    "lastname": "lastname 0",
+    "home": "1110",
+    "mobile": "2220",
+    "email": "email 0",
+    "email2": "email 1",
+    "email3": "email 2",
+    "group": "group 0"
+  },
+  {
+    "firstname": "firstname 1",
+    "lastname": "lastname 1",
+    "home": "1111",
+    "mobile": "2221",
+    "email": "email 1",
+    "email2": "email 2",
+    "email3": "email 3",
+    "group": "group 1"
+  }
+]
