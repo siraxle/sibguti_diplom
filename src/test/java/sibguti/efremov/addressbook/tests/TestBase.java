@@ -1,16 +1,20 @@
 package sibguti.efremov.addressbook.tests;
 
-import org.openqa.selenium.remote.BrowserType;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import sibguti.efremov.addressbook.appmanager.ApplicationManager;
 
+import java.io.IOException;
+
+import static org.openqa.selenium.remote.BrowserType.CHROME;
+
 public class TestBase {
 
-  public static final ApplicationManager app = new ApplicationManager(BrowserType.CHROME);
+  public static final ApplicationManager app =
+          new ApplicationManager(System.getProperty("browser", CHROME));
 
   @BeforeSuite
-  public void setUp() {
+  public void setUp() throws IOException {
     app.init();
   }
 
