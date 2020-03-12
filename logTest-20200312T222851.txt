@@ -1,0 +1,4 @@
+22:28:55.368 [main] INFO  s.e.addressbook.tests.TestBase - Start test groupCreationTest with parameters [GroupData{name='group 0', id='2147483647'}]
+22:28:59.227 [main] INFO  s.e.addressbook.tests.TestBase - Stop test groupCreationTest
+22:28:59.228 [main] INFO  s.e.addressbook.tests.TestBase - Start test groupCreationTest with parameters [GroupData{name='group 1', id='2147483647'}]
+22:29:01.510 [main] INFO  s.e.addressbook.tests.TestBase - Stop test groupCreationTest

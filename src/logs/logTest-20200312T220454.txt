@@ -1,0 +1,4 @@
+22:05:02.715 [main] INFO  s.e.a.tests.GroupCreationTests - Start test testGroupCreation
+22:05:05.914 [main] INFO  s.e.a.tests.GroupCreationTests - Stop test testGroupCreation
+22:05:05.917 [main] INFO  s.e.a.tests.GroupCreationTests - Start test testGroupCreation
+22:05:08.487 [main] INFO  s.e.a.tests.GroupCreationTests - Stop test testGroupCreation
