@@ -3,48 +3,96 @@ package sibguti.efremov.addressbook.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 import java.util.Objects;
 
+@Entity
+@Table(name = "addressbook")
 @XStreamAlias("contact")
 public class ContactData {
   @XStreamOmitField
+  @Id
+  @Column(name = "id")
   private int id;
+
   @Expose
+  @Column(name = "firstname")
   private String firstname;
+
   private String middlename;
+
   @Expose
+  @Column(name = "lastname")
   private String lastname;
+
   private String nickname;
   private String title;
   private String company;
+
+  @Type(type = "text")
   private String address;
+
   @Expose
+  @Column(name = "home")
+  @Type(type = "text")
   private String home;
+
   @Expose
+  @Column(name = "mobile")
+  @Type(type = "text")
   private String mobile;
+
   @Expose
+  @Column(name = "work")
+  @Type(type = "text")
   private String work;
+
+  @Type(type = "text")
   private String fax;
+
   @Expose
+  @Type(type = "text")
   private String email;
+
   @Expose
+  @Type(type = "text")
   private String email2;
+
   @Expose
+  @Type(type = "text")
   private String email3;
+
+  @Type(type = "text")
   private String homepage;
+
+  @Type(type = "text")
   private String address2;
+
+  @Type(type = "text")
   private String phone2;
+
+  @Type(type = "text")
   private String notes;
+
   @Expose
+  @Transient
   private String group;
+
+  @Transient
   private String allPhones;
+
+  @Transient
   private String allEmails;
-  private File photo;
+
+  @Column(name = "photo")
+  @Type(type = "text")
+  private String photo;
 
   public File getPhoto() {
-    return photo;
+    return new File(photo);
   }
 
   public int getId() {
@@ -136,7 +184,7 @@ public class ContactData {
   }
 
   public ContactData withPhoto(File photo) {
-    this.photo = photo;
+    this.photo = photo.getPath();
     return this;
   }
 
