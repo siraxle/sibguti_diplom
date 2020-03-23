@@ -21,6 +21,7 @@ public class ApplicationManager {
   private GroupHelper groupHelper;
   private ContactHelper contactHelper;
   private HomePageHelper homePageHelper;
+  private DbHelper dbHelper;
   private String browser;
 
   public ApplicationManager(String browser){
@@ -33,6 +34,8 @@ public class ApplicationManager {
     String target = System.getProperty("target", "local");
     properties.load(new FileReader(
             new File(String.format("src\\test\\resources\\%s.properties", target))));
+
+    dbHelper = new DbHelper();
 
     if (browser.equals(BrowserType.FIREFOX)) {
       System.setProperty("webdriver.gecko.driver", "drivers/geckodriver.exe");
@@ -54,7 +57,6 @@ public class ApplicationManager {
     homePageHelper = new HomePageHelper(wd);
     sessionHelper.login(properties.getProperty("web.adminLogin"),
             properties.getProperty("web.adminPassword") );
-
   }
 
   public void stop() {
@@ -75,5 +77,9 @@ public class ApplicationManager {
 
   public HomePageHelper getHomePageHelper() {
     return homePageHelper;
+  }
+
+  public DbHelper db() {
+    return dbHelper;
   }
 }
