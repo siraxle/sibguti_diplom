@@ -15,7 +15,7 @@ public class ContactAllInformationTests extends TestBase {
       app.goTo().contactCreationPage();
       app.contact().create(new ContactData().withAddress("test").withEmail("test").
               withEmail2("test").withEmail3("test").
-              withFirstname("Firstname").withGroup("test1").withHomePhone("111").
+              //withFirstname("Firstname").withGroup("test1").withHomePhone("111").
               withLastname("test").withMobilePhone("222").withPhone2("333").
               withLastname("Lastname"));
     }

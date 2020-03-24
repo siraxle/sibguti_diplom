@@ -58,7 +58,7 @@ public class ContactDataGenerator {
         writer.write(String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\n",
                 contact.getAddress(), contact.getAddress2(),
                 contact.getCompany(), contact.getEmail(), contact.getEmail2(), contact.getEmail3(),
-                contact.getFaxPhone(), contact.getFirstname(), contact.getLastname(), contact.getGroup(),
+                //contact.getFaxPhone(), contact.getFirstname(), contact.getLastname(), contact.getGroup(),
                 contact.getHomePhone(), contact.getHomepage(), contact.getMobilePhone(), contact.getNotes(),
                 contact.getPhone2(), contact.getPhoto()));
       }
@@ -91,7 +91,7 @@ public class ContactDataGenerator {
               .withCompany(String.format("company %s", i)).withEmail(String.format("email %s", i))
               .withEmail2(String.format("email %s", i + 1)).withEmail3(String.format("email %s", i + 2))
               .withFax(String.format("fax %s", i)).withFirstname(String.format("firstname %s", i))
-              .withGroup(String.format("group %s", i)).withHomePhone(String.format("111%s", i))
+              //.withGroup(String.format("group %s", i)).withHomePhone(String.format("111%s", i))
               .witHomePage(String.format("homepage %s", i)).withLastname(String.format("lastname %s", i))
               .withMobilePhone(String.format("222%s", i)).withNotes(String.format("notes %s", i))
               .withPhone2(String.format("333%s", i)));

@@ -7,6 +7,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import sibguti.efremov.addressbook.model.ContactData;
 import sibguti.efremov.addressbook.model.Contacts;
+import sibguti.efremov.addressbook.model.Groups;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -24,6 +25,7 @@ public class ContactCreationTests extends TestBase {
 
   @DataProvider
   public Iterator<Object[]> validContactsFromCsv() throws IOException {
+    Groups groups = app.db().groups();
     File photo = new File(String.format("src/test/resources/ava_00%s.png",
             1 + (int) (Math.random() * 9)));
     List<Object[]> list = new ArrayList<Object[]>();
@@ -37,7 +39,7 @@ public class ContactCreationTests extends TestBase {
                 .withCompany(split[2]).withEmail(split[3])
                 .withEmail2(split[4]).withEmail3(split[5])
                 .withFax(split[6]).withFirstname(split[7])
-                .withGroup(split[9]).withHomePhone(split[10])
+                .inGroup(groups.iterator().next()).withHomePhone(split[10])
                 .witHomePage(split[11]).withLastname(split[8])
                 .withMobilePhone(split[12]).withNotes(split[13])
                 .withPhone2(split[14]).withPhoto(photo)});
@@ -81,7 +83,7 @@ public class ContactCreationTests extends TestBase {
     }
   }
 
-  @Test(dataProvider = "validContactsFromJson")
+  @Test(dataProvider = "validContactsFromCsv")
   public void testContactCreation(ContactData contact) {
     app.goTo().homePage();
     Contacts before = app.contact().all();
