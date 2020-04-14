@@ -6,7 +6,10 @@ import com.beust.jcommander.ParameterException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.thoughtworks.xstream.XStream;
+import sibguti.efremov.addressbook.appmanager.DbHelper;
 import sibguti.efremov.addressbook.model.ContactData;
+import sibguti.efremov.addressbook.model.Groups;
+import sibguti.efremov.addressbook.tests.TestBase;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -15,7 +18,7 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContactDataGenerator {
+public class ContactDataGenerator extends TestBase {
 
   @Parameter(names = "-c", description = "Contact count")
   public int count;
@@ -55,12 +58,12 @@ public class ContactDataGenerator {
   private void saveAsCsv(List<ContactData> contacts, File file) throws IOException {
     try (Writer writer = new FileWriter(file)) {
       for (ContactData contact : contacts) {
-        writer.write(String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\n",
+        writer.write(String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\n",
                 contact.getAddress(), contact.getAddress2(),
                 contact.getCompany(), contact.getEmail(), contact.getEmail2(), contact.getEmail3(),
-                //contact.getFaxPhone(), contact.getFirstname(), contact.getLastname(), contact.getGroup(),
+                contact.getFaxPhone(), contact.getFirstname(), contact.getLastname(),
                 contact.getHomePhone(), contact.getHomepage(), contact.getMobilePhone(), contact.getNotes(),
-                contact.getPhone2(), contact.getPhoto()));
+                contact.getPhone2()));
       }
     }
   }
@@ -91,7 +94,7 @@ public class ContactDataGenerator {
               .withCompany(String.format("company %s", i)).withEmail(String.format("email %s", i))
               .withEmail2(String.format("email %s", i + 1)).withEmail3(String.format("email %s", i + 2))
               .withFax(String.format("fax %s", i)).withFirstname(String.format("firstname %s", i))
-              //.withGroup(String.format("group %s", i)).withHomePhone(String.format("111%s", i))
+              .withHomePhone(String.format("111%s", i))
               .witHomePage(String.format("homepage %s", i)).withLastname(String.format("lastname %s", i))
               .withMobilePhone(String.format("222%s", i)).withNotes(String.format("notes %s", i))
               .withPhone2(String.format("333%s", i)));

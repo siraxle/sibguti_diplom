@@ -3,8 +3,6 @@ package sibguti.efremov.addressbook.tests;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.thoughtworks.xstream.XStream;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import sibguti.efremov.addressbook.model.GroupData;
@@ -78,13 +76,14 @@ public class GroupCreationTests extends TestBase {
 
   @Test(dataProvider = "validGroupsFromCsv")
   public void groupCreationTest(GroupData group) {
+    Groups before = app.db().groups();
     app.goTo().groupPage();
-    Groups before = app.group().all();
     app.group().create(group);
-    Groups after = app.group().all();
+    Groups after = app.db().groups();
     assertThat(after.size(), equalTo(before.size() + 1));
     assertThat(after, equalTo(
             before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
+    verifyGroupListInUi();
   }
 
 }

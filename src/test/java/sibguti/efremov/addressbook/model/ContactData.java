@@ -293,6 +293,11 @@ public class ContactData {
     return this;
   }
 
+  public ContactData inGroup(GroupData group) {
+    groups.add(group);
+    return this;
+  }
+
   public Groups getGroups() {
     return new Groups(groups);
   }
@@ -327,8 +332,4 @@ public class ContactData {
     return Objects.hash(id, firstname, lastname);
   }
 
-  public ContactData inGroup(GroupData group) {
-    groups.add(group);
-    return this;
-  }
 }

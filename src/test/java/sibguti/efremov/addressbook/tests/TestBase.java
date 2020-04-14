@@ -9,6 +9,8 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import sibguti.efremov.addressbook.appmanager.ApplicationManager;
+import sibguti.efremov.addressbook.model.ContactData;
+import sibguti.efremov.addressbook.model.Contacts;
 import sibguti.efremov.addressbook.model.GroupData;
 import sibguti.efremov.addressbook.model.Groups;
 
@@ -54,6 +56,17 @@ public class TestBase {
       Groups uiGroups = app.group().all();
       assertThat(uiGroups, equalTo(dbGroups.stream().map((g) -> new GroupData()
               .withId(g.getId()).withName(g.getName()))
+              .collect(Collectors.toSet())));
+    }
+  }
+
+  public void verifyContactListInUi() {
+    if (Boolean.getBoolean("verifyUI")) {
+      Contacts dbContacts = app.db().contacts();
+      Contacts uiContacts = app.contact().all();
+      assertThat(uiContacts, equalTo(dbContacts.stream().map((c) -> new ContactData()
+              .withId(c.getId()).withFirstname(c.getFirstname())
+              .withLastname(c.getLastname()).withAddress(c.getAddress()))
               .collect(Collectors.toSet())));
     }
   }

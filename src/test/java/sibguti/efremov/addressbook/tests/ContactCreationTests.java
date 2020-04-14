@@ -25,7 +25,6 @@ public class ContactCreationTests extends TestBase {
 
   @DataProvider
   public Iterator<Object[]> validContactsFromCsv() throws IOException {
-    Groups groups = app.db().groups();
     File photo = new File(String.format("src/test/resources/ava_00%s.png",
             1 + (int) (Math.random() * 9)));
     List<Object[]> list = new ArrayList<Object[]>();
@@ -39,10 +38,10 @@ public class ContactCreationTests extends TestBase {
                 .withCompany(split[2]).withEmail(split[3])
                 .withEmail2(split[4]).withEmail3(split[5])
                 .withFax(split[6]).withFirstname(split[7])
-                .inGroup(groups.iterator().next()).withHomePhone(split[10])
-                .witHomePage(split[11]).withLastname(split[8])
-                .withMobilePhone(split[12]).withNotes(split[13])
-                .withPhone2(split[14]).withPhoto(photo)});
+                .withHomePhone(split[9])
+                .witHomePage(split[9]).withLastname(split[8])
+                .withMobilePhone(split[10]).withNotes(split[11])
+                .withPhone2(split[12]).withPhoto(photo)});
         line = reader.readLine();
       }
       return list.iterator();
@@ -51,6 +50,8 @@ public class ContactCreationTests extends TestBase {
 
   @DataProvider
   public Iterator<Object[]> validContactsFromJson() throws IOException {
+    File photo = new File(String.format("src/test/resources/ava_00%s.png",
+            1 + (int) (Math.random() * 9)));
     try (BufferedReader reader = new BufferedReader(new FileReader
             (new File("src\\test\\resources\\contacts.json")));){
       String json = "";
@@ -60,13 +61,16 @@ public class ContactCreationTests extends TestBase {
         line = reader.readLine();
       }
       Gson gson = new Gson();
-      List<ContactData> groups = gson.fromJson(json, new TypeToken<List<ContactData>>(){}.getType());
-      return groups.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
+      List<ContactData> contacts = gson.fromJson(json, new TypeToken<List<ContactData>>(){}.getType());
+      return contacts.stream().map((c) ->
+              new Object[] {c.withPhoto(photo)}).collect(Collectors.toList()).iterator();
     }
   }
 
   @DataProvider
   public Iterator<Object[]> validContactsFromXml() throws IOException {
+    File photo = new File(String.format("src/test/resources/ava_00%s.png",
+            1 + (int) (Math.random() * 9)));
     try (BufferedReader reader = new BufferedReader(new FileReader
             (new File("src\\test\\resources\\contacts.xml")));){
       String xml = "";
@@ -78,18 +82,19 @@ public class ContactCreationTests extends TestBase {
       XStream xStream = new XStream();
       xStream.processAnnotations(ContactData.class);
       List<ContactData> contacts = (List<ContactData>) xStream.fromXML(xml);
-      contacts.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
-      return contacts.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
+      return contacts.stream().map((c) ->
+              new Object[] {c.withPhoto(photo)}).collect(Collectors.toList()).iterator();
     }
   }
 
-  @Test(dataProvider = "validContactsFromCsv")
+  @Test(dataProvider = "validContactsFromXml")
   public void testContactCreation(ContactData contact) {
+    Groups groups = app.db().groups();
     app.goTo().homePage();
-    Contacts before = app.contact().all();
+    Contacts before = app.db().contacts();
     app.goTo().contactCreationPage();
-    app.contact().create(contact);
-    Contacts after = app.contact().all();
+    app.contact().create(contact.inGroup(groups.iterator().next()));
+    Contacts after = app.db().contacts();
     assertThat(after.size(), equalTo(before.size() + 1));
     assertThat(after, equalTo(before.withAdded(
             contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));

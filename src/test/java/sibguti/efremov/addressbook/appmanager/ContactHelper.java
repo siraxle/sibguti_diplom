@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import sibguti.efremov.addressbook.model.ContactData;
 import sibguti.efremov.addressbook.model.Contacts;
+import sibguti.efremov.addressbook.model.Groups;
 
 import java.util.List;
 
